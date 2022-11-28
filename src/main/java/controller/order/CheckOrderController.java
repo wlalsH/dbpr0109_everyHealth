@@ -23,7 +23,7 @@ public class CheckOrderController implements Controller {
 		ArrayList<Item> items = manager.findItemsByOrderId(order.getOrderId());
 		
 		for (Item item : items) {
-//			Product product = 
+//			product manager를 이용해 item DTO에 상품 이름과 image 주소를 담는다. 
 		}
 		
 		request.setAttribute("items", items);

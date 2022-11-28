@@ -38,7 +38,7 @@ public class CreateOrderController implements Controller {
 		} 
 		
 		if (request.getMethod().equals("GET")) {	
-    		// GET request: 회원정보 등록 form 요청	
+    		// GET request: order form 요청
     		log.debug("OrderForm Request");
     		
     		// orderForm에 회원 정보를 자동으로 기입하기 위해. 
@@ -49,7 +49,6 @@ public class CreateOrderController implements Controller {
     		request.setAttribute("totalPrice", 30000);
     		
     		// 장바구니에서 넘어온 item 정리해서 "items"로 넘김. 
-//    		session.setAttribute("items", );
 //    		request.setAttribute("items", );
     		
     		// items 정리해서 totalPrice 계산 후 넘김. 
