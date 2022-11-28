@@ -25,7 +25,7 @@ public class RefundController implements Controller {
 		boolean result = false;
 		HttpSession session = request.getSession();
 		if (CustomerSessionUtils.hasLogined(session)) {
-			String id = CustomerSessionUtils.getLoginUserId(session);
+			String id = CustomerSessionUtils.getLoginCustomerId(session);
 			
 			try {
 				result = manager.refund(id, Integer.parseInt(orderId));

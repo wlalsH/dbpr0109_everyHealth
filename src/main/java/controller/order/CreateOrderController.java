@@ -32,8 +32,10 @@ public class CreateOrderController implements Controller {
 		HttpSession session = request.getSession();
 		String customerId = null;
 		Customer customer = null;
+		OrderManager manager = OrderManager.getInstance();
+		int totalPrice = 0;
 		if (CustomerSessionUtils.hasLogined(session)) {
-			customerId = CustomerSessionUtils.getLoginUserId(session);
+			customerId = CustomerSessionUtils.getLoginCustomerId(session);
 //			CustomerManager에서 id를 통해 CustomerDTO 가져오기. 
 		} 
 		
@@ -52,7 +54,8 @@ public class CreateOrderController implements Controller {
 //    		request.setAttribute("items", );
     		
     		// items 정리해서 totalPrice 계산 후 넘김. 
-    		request.setAttribute("totalPrice", 10000);
+//    		totalPrice = manager.calcTotalPrice(items);
+//    		request.setAttibute("totalPrice", totalPrice);
 		
 			return "/order/orderForm.jsp";   // orderForm으로 이동.     	
 	    }
@@ -82,9 +85,6 @@ public class CreateOrderController implements Controller {
 			order = new Order(-1, new Date(), "입금 전", null, -1, null);
 			nmCustomer = new NonMemCustomer(name, email, phone);
 		}
-		
-		OrderManager manager = OrderManager.getInstance();
-		int totalPrice = manager.calcTotalPrice(items);
 		
 		try {
 			Order newOrder = manager.createOrder(order, nmCustomer, items, cr, bi, sd, totalPrice);

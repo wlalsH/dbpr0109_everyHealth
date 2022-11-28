@@ -26,7 +26,7 @@ public class OrderCancelController implements Controller {
 		HttpSession session = request.getSession();
 		
 		if (CustomerSessionUtils.hasLogined(session)) {		// 회원 주문 취소 요청 처리. 
-			String id = CustomerSessionUtils.getLoginUserId(session);
+			String id = CustomerSessionUtils.getLoginCustomerId(session);
 			try {
 				result = manager.cancelOrder(id, Integer.parseInt(orderId));
 				if (!result) {
