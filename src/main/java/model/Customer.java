@@ -98,8 +98,8 @@ public class Customer {
 	}
 	
 	public boolean isSameCustomer(String customerid) {
-        return this.customerId.equals(customerid);
-    }
+		return this.customerId.equals(customerid);
+	}
 	
 	@Override
 	public String toString() {
