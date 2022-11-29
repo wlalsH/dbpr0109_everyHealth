@@ -1,1 +1,1 @@
-<% response.sendRedirect(request.getContextPath() + "/product/main"); %>
+<% response.sendRedirect(request.getContextPath() + "/main"); %>
