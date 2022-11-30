@@ -1,40 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문 관리</title>
+<title>주문 폼</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <script>
 function orderCreate() {
 	if (orderForm.name.value == "") {
 		alert("이름을 입력하세요.");
-		form.name.fouse();
+		orderForm.name.fouse();
 		return false;
 	}
 	if (orderForm.address.value == "") {
 		alert("주소를 입력하세요.");
-		form.name.fouse();
+		orderForm.address.fouse();
 		return false;
 	}
 	if (orderForm.email.value == "") {
 		alert("이메일을 입력하세요.");
-		form.name.fouse();
+		orderForm.email.fouse();
 		return false;
 	}
 	var emailExp = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-	if(emailExp.test(form.email.value)==false) {
+	if(emailExp.test(orderForm.email.value)==false) {
 		alert("이메일 형식이 올바르지 않습니다.");
-		form.email.focus();
+		orderForm.email.focus();
+		return false;
+	}
+	if (orderForm.phone.value == "") {
+		alert("이메일을 입력하세요.");
+		orderForm.phone.fouse();
 		return false;
 	}
 	var phoneExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	if(phoneExp.test(form.phone.value)==false) {
+	if(phoneExp.test(orderForm.phone.value)==false) {
 		alert("전화번호 형식이 올바르지 않습니다.");
-		form.phone.focus();
+		orderForm.phone.focus();
 		return false;
 	}
 	
@@ -60,6 +65,7 @@ function applyPoint() {
 }
 </script>
 <body>
+	<%@include file="/WEB-INF/basicBar.jsp" %>
 	<div style="padding: 50px;">
 	<div>
 		<b style="font-size: 40px">Order</b>
@@ -142,7 +148,7 @@ function applyPoint() {
 	    <div class="row mb-3">  
 	        <label for="shippingMessage" class="col-sm-2 col-form-label">배송메세지</label>
 	        <div class="col-sm-9">
-	        	<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="배송 메세지"></textarea>
+	        	<textarea class="form-control" id="exampleFormControlTextarea1" name="shippingMessage" rows="3" placeholder="배송 메세지"></textarea>
 	        </div>
 	    </div> 
 	    <br>
@@ -209,7 +215,7 @@ function applyPoint() {
 	    <div class="row mb-3">  
 	        <label for="bank" class="col-sm-2 col-form-label">입금 은행</label>
 	        <div class="col-sm-5">
-	        	<select class="form-select form-select-sm" aria-label="Default select example" name="bankNmae">
+	        	<select class="form-select form-select-sm" aria-label="Default select example" name="bankName">
 				  <option value="신한 은행"selected>신한 은행</option>
 				  <option value="우리 은행">우리 은행</option>
 				  <option value="기업 은행">기업 은행</option>
@@ -248,8 +254,8 @@ function applyPoint() {
 	    	<label for="cashReceiptPhone" class="col-sm-2 col-form-label"></label>
 	  	</div>    
 	    <div class="row mb-3">
-    		<button type="submit" class="btn btn-primary" style="background-color: black; color: #c5dc63;" onClick="orderCreate();"><b>주문하기</b></button>
- 		</div>  
+	    	<input type="button" class="btn btn-primary" style="background-color: black; color: #c5dc63;" onClick="orderCreate()" value="주문하기">
+ 		</div>
 	</form> 
 	</div>
 </body>
