@@ -22,7 +22,7 @@ public class ViewProductController implements Controller {
 		prod = manager.findProduct(productId);
 
 		request.setAttribute("product", prod);				
-		return "/product/productView.jsp";				
+		return "/product/view.jsp";				
     }
 
 }
