@@ -70,7 +70,7 @@ function cartCreate(targetUri) {  //수정 필요
 			<input type="button" value="구매하기" onClick="location.href='<c:url value="/order/form?productid=${product.productId }"/>'"> &nbsp;
 			<input type="button" value="장바구니 담기" onClick="createCart(
 								'<c:url value='/shop/cart'/>')">  <!--수정해야 함. -->
-			</td>						
+			</td>		 				
 		  </tr>
 	    </table>
 	 </td>
