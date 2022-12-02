@@ -1,7 +1,14 @@
 <%@page contentType="text/html; charset=utf-8" %>
 <%@page import="java.util.*, model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	Product product = (Product)request.getAttribute("product");
+	
+	@SuppressWarnings("unchecked") 
+	List<Product> productList = (List<Product>)request.getAttribute("productList");
+	String productId = (String)request.getAttribute("productId");
 
+%>
 <html>
 <head>
 <title>상품 상세</title>
@@ -10,6 +17,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+function payment() {
+	
+}
+
 function cartCreate(targetUri) {  //수정 필요
 	form.action = targetUri;
 	form.method="GET";		// register form 요청
@@ -17,6 +28,7 @@ function cartCreate(targetUri) {  //수정 필요
 }
 </script>
 </head>
+
 <body>
 <%@include file="/WEB-INF/basicBar.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -46,7 +58,7 @@ function cartCreate(targetUri) {  //수정 필요
 				${product.name}
 			</td>
 		  </tr>
-		  <tr>  
+		  <tr>
 			<td width="120" align="center" bgcolor="E6ECDE" height="22">가격</td>
 			<td width="470" bgcolor="ffffff" style="padding-left: 10">
 				${product.price}
@@ -64,13 +76,13 @@ function cartCreate(targetUri) {  //수정 필요
 			<td align=left>
 			<input type="button" value="구매하기" onClick="location.href='<c:url value="/order/form?productid=${product.productId }"/>'"> &nbsp;
 			<input type="button" value="장바구니 담기" onClick="createCart(
-								'<c:url value='/shop/cart'/>')">
-			</td>		 				
-		  </tr> 
+								'<c:url value='/shop/cart'/>')">  <!--수정해야 함. -->
+			</td>						
+		  </tr>
 	    </table>
 	 </td>
 	 </tr>
 </table>
 	 	
-</body> 
+</body>
 </html>
