@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+	<%@include file="/WEB-INF/basicBar.jsp" %>
 	<div style="padding: 50px;">
 		<div>
 			<b style="font-size: 40px">주문이 완료되었습니다.</b>
