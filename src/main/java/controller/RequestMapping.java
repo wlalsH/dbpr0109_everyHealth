@@ -6,10 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.product.ListProductController;
+import controller.product.SearchController;
 import controller.product.ViewProductController;
 
-//import controller.user.*;
-//import controller.comm.*;
 
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
@@ -24,6 +23,7 @@ public class RequestMapping {
 
         mappings.put("/main", new ListProductController());
         mappings.put("/product/view", new ViewProductController());
+        mappings.put("/product/search", new SearchController());
         logger.info("Initialized Request Mapping!");
     }
 

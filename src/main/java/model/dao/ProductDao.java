@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Product;
 
-/**
- * product 테이블 검색을 수행하는 DAO 클래스
- */
 public class ProductDao {
 	private JDBCUtil jdbcUtil = null;
 
@@ -25,35 +22,6 @@ public class ProductDao {
 				+ "    FROM product\r\n"
 				+ "    ORDER BY sell DESC)\r\n"
 				+ "WHERE ROWNUM <= 6 ";
-		jdbcUtil.setSqlAndParameters(sql, null); 
-
-		List<Product> prodList = null;
-		try {
-			ResultSet rs = jdbcUtil.executeQuery(); // query 실행 
-			prodList = new ArrayList<Product>(); // Product 리스트 생성
-			while (rs.next()) {
-				Product prod = new Product( // Product 객체를 생성하여 정보 저장
-						rs.getString("productId"),
-						rs.getString("name"),
-						rs.getInt("price"),
-						rs.getString("image"));
-				prodList.add(prod); // List 에 Product 객체 저장
-			} 
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.close(); // resource 반환
-		}
-		return prodList; 
-	}
-	
-	/**
-	 * 전체 product 정보를 검색하여 List 에 저장 및 반환
-	 */
-	public List<Product> findProductList() throws SQLException {
-		String sql = "SELECT productId, name, price, category, stock, description "
-				+ "FROM product"; 
 		jdbcUtil.setSqlAndParameters(sql, null); 
 
 		List<Product> prodList = null;
@@ -146,29 +114,28 @@ public class ProductDao {
 	}
 	
 	/**
-	 * 제품을 입력받은 keyword 로 검색하여 List에 저장 및 반환 (상품명으로만 검색)//특수문자 처리 필요//수정해야 함.
+	 * 제품을 입력받은 keyword 로 검색하여 List에 저장 및 반환
 	 */
 	public List<Product> findProductList(String keyword) throws SQLException {
-		String sql = "SELECT productId, name, price, category, stock, description, image, sell "
-				+ "FROM product "
-				+ "WHERE name LIKE '%?%'"; 
-		jdbcUtil.setSqlAndParameters(sql, null); 
+		String sql = "SELECT productId, name, price, category, stock, description, image, sell\r\n"
+				+ "FROM product\r\n"
+				+ "WHERE UPPER(name) LIKE UPPER('%' || ? || '%')";
 		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {keyword});
+
 		List<Product> prodList = null;
 		try {
 			ResultSet rs = jdbcUtil.executeQuery(); // query 실행 
-			prodList = new ArrayList<Product>(); 
+			prodList = new ArrayList<Product>(); // Product 리스트 생성
 			while (rs.next()) {
-				Product prod = new Product( 
+				Product prod = new Product( // Product 객체를 생성하여 정보 저장
 						rs.getString("productId"),
 						rs.getString("name"),
 						rs.getInt("price"),
-						rs.getString("category"),
-						rs.getInt("stock"),
-						rs.getString("description"),
 						rs.getString("image"),
+						rs.getString("category"),
 						rs.getInt("sell"));
-				prodList.add(prod); 
+				prodList.add(prod); // List 에 Product 객체 저장
 			} 
 
 		} catch (Exception ex) {

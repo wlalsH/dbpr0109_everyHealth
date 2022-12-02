@@ -29,8 +29,8 @@ public class ProductManager {
 		return prodMan;
 	}
 
-	public List<Product> findProductList() throws SQLException {
-		return productDao.findProductList();
+	public List<Product> findProductList(String keyword) throws SQLException {
+		return productDao.findProductList(keyword);
 	}
 	
 	public List<Product> findBestProductList() throws SQLException {
@@ -60,5 +60,6 @@ public class ProductManager {
 		}
 		return prod;
 	}
+
 
 }

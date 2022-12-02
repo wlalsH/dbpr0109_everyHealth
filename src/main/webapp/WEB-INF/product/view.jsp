@@ -1,14 +1,7 @@
 <%@page contentType="text/html; charset=utf-8" %>
 <%@page import="java.util.*, model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	Product product = (Product)request.getAttribute("product");
-	
-	@SuppressWarnings("unchecked") 
-	List<Product> productList = (List<Product>)request.getAttribute("productList");
-	String productId = (String)request.getAttribute("productId");
 
-%>
 <html>
 <head>
 <title>상품 상세</title>

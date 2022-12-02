@@ -26,7 +26,6 @@ public class ListProductController implements Controller {
 		List<Product> manList = manager.findBestProductListByCategory(category[6]); 
 		List<Product> kidsList = manager.findBestProductListByCategory(category[7]); 
 		
-		// commList 객체를 request에 저장하여 커뮤니티 리스트 화면으로 이동(forwarding)
 		request.setAttribute("prodList", prodList);		
 		request.setAttribute("sightList", sightList);		
 		request.setAttribute("fatigueList", fatigueList);

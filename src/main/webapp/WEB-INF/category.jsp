@@ -58,7 +58,6 @@ li a:hover:not(.active) {
       <div style="float:right">
     	<table>
       	<tr>
-     
  	   		<td><input type="text" style="width:240" name="keyword"></td>
        		<td><input type="button" value="검색" onClick="search()">
        		</td>
