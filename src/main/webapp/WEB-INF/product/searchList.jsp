@@ -51,7 +51,6 @@
   				<td>${product.price}</td>
   			</tr>
   		 </table>
-  		
   		</span>
 	  </c:forEach>
 	  </td>
