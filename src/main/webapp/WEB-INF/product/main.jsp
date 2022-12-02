@@ -1,7 +1,7 @@
 <%@page contentType="text/html; charset=utf-8" %>
 <%-- <%@page import="java.util.*, model.*" %> --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
+<%-- 
 	@SuppressWarnings("unchecked")  
 	List<User> userList = (List<User>)request.getAttribute("userList");
 	String curUserId = (String)request.getAttribute("curUserId");

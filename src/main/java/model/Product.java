@@ -77,7 +77,6 @@ public class Product {
 		this.sell = sell;
 	}
 	
-	
 	public Product(String productId, String name, int price, String category, int stock, String description,
 			String image, int sell) {
 		super();

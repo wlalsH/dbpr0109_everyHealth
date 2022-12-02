@@ -43,6 +43,7 @@ li a:hover:not(.active) {
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
+
 <body>
 <form name="searchForm" method="POST" action="<c:url value='/product/search'/>">
  <ul>

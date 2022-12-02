@@ -13,7 +13,6 @@
 <head>
 <title>제품</title>
 </head>
-
 <body>
 <%@include file="/WEB-INF/basicBar.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
