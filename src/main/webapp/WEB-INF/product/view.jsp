@@ -82,11 +82,5 @@ function cartCreate(targetUri) {  //수정 필요
 	 </td>
 	 </tr>
 </table>
-	 	
-<<<<<<< HEAD
-</body>
-</html>
-=======
 </body> 
 </html>
->>>>>>> refs/remotes/origin/feature/main
