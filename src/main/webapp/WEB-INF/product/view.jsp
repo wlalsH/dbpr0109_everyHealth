@@ -71,7 +71,7 @@ function cartCreate(targetUri) {  //수정 필요
 			<input type="button" value="장바구니 담기" onClick="createCart(
 								'<c:url value='/shop/cart'/>')">  <!--수정해야 함. -->
 			</td>		 				
-		  </tr>
+		  </tr> 
 	    </table>
 	 </td>
 	 </tr>
