@@ -6,28 +6,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import controller.Controller;
 import model.Item;
 import model.Order;
+import model.Product;
 import model.service.OrderManager;
+import model.service.ProductManager;
 
 public class CheckOrderController implements Controller {
+	private static final Logger log = LoggerFactory.getLogger(CreateOrderController.class);
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session = request.getSession();
-		Order order = (Order) session.getAttribute("order");
-		OrderManager manager = OrderManager.getInstance();
-//		ProductManager productManager = ProductManager.getInstane();
+		String sOrderId = request.getParameter("orderid");
+		int orderId = Integer.parseInt(sOrderId);
 		
-		ArrayList<Item> items = manager.findItemsByOrderId(order.getOrderId());
+		OrderManager orderManager = OrderManager.getInstance();
+		ProductManager productManager = ProductManager.getInstance();
 		
+		ArrayList<Item> items = orderManager.findItemsByOrderId(orderId);
 		for (Item item : items) {
-//			product manager를 이용해 item DTO에 상품 이름과 image 주소를 담는다. 
+			Product product = productManager.findProduct(item.getProductId());
+			item.setImage(product.getImage());
+			item.setProductName(product.getName());
 		}
 		
 		request.setAttribute("items", items);
-		session.removeAttribute("order");
 		
 		return "/order/orderCheck.jsp";
 	}
