@@ -59,7 +59,7 @@ public class OrderManager {
 	/**
 	 * 주문 생성하기. 
 	 */
-	public Order createOrder(Order order, NonMemCustomer nmCustomer, List<Item> items, CashReceipt cr, BillingInfo bi, ShippingDetail sd, int totalPrice) throws OutOfStockException, SQLException {
+	public Order createOrder(Order order, NonMemCustomer nmCustomer, List<Item> items, CashReceipt cr, BillingInfo bi, ShippingDetail sd, int finalPrice) throws OutOfStockException, SQLException {
 		ArrayList<Item> soldOutItems = new ArrayList<Item>();
 		Product product;
 		for (int i = 0; i < items.size(); i++) {		// 주문 전 재고 확인. 
@@ -74,7 +74,7 @@ public class OrderManager {
 		
 		// items 중 품절된 상품이 하나라도 있는 경우. 
 		if (soldOutItems.size() > 0) {					
-			createOrder(order, nmCustomer, items, cr, bi, sd, totalPrice);	
+			createOrder(order, nmCustomer, items, cr, bi, sd, finalPrice);	
 			
 			StringBuffer sb = new StringBuffer("");
 			for (Item item : soldOutItems) {
@@ -88,16 +88,19 @@ public class OrderManager {
 		} 
 		
 		// items 중 품절된 상품이 없어 바로 주문이 가능한 경우. 
-		if (nmCustomer == null) {
+		if (nmCustomer != null) {
 			return orderDAO.createNonMemberCustomer(order, nmCustomer, items, cr, bi, sd);
 		}
 		
 		Order newOrder = orderDAO.createMemberOrder(order, items, cr, bi, sd);
-		orderDAO.updateCustomerPoint(order.getCustomerId(), (-order.getUsedPoint() + (int)(totalPrice * 0.01)));
+		orderDAO.updateCustomerPoint(order.getCustomerId(), (-order.getUsedPoint() + (int)(finalPrice * 0.01)));
 		
 		return newOrder;
 	}
 	
+	/**
+	 * 주문 취소하기. 
+	 */
 	public boolean cancelOrder(String customerId, int orderId) throws UnavailableCancelException {
 		String orderStatus = orderDAO.findOrderStatus(orderId);
 		
@@ -113,6 +116,9 @@ public class OrderManager {
 		return orderDAO.cancelOrRefundOrder(orderId, "취소");
 	}
 	
+	/**
+	 * 환불하기. 
+	 */
 	public boolean refund(String customerId, int orderId) throws UnavailableRefundException {
 		Date shippedDate = new Date();
 		shippedDate = orderDAO.findShippedDate(orderId);
