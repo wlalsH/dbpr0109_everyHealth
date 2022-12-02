@@ -6,12 +6,12 @@
 <head>
 <script>
 function search() {
-	if (form.keyword.value == "") {
-		alert("검색어를 입력하세요");
-		form.keyword.focus();
+	if (searchForm.keyword.value == "") {
+		alert("검색어를 입력하십시오.");
+		searchForm.keyword.focus();
 		return false;
 	} 
-	form.submit();
+	searchForm.submit();
 }
 </script>
 <style>
@@ -39,12 +39,12 @@ li a {
 li a:hover:not(.active) {
     background-color: #111;
 }
-
 </style>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
+<form name="searchForm" method="POST" action="<c:url value='/product/search'/>">
  <ul>
       <li><a href="sight">sight</a></li>
       <li><a href="#digestion">digestion</a></li>
@@ -54,13 +54,17 @@ li a:hover:not(.active) {
       <li><a href="woman">woman</a></li>
       <li><a href="#man"> man</a></li>
       <li><a href="#kids">kids</a></li>
-   	  <table align="right">
+      
+      <div style="float:right">
+    	<table>
       	<tr>
+     
  	   		<td><input type="text" style="width:240" name="keyword"></td>
-       		<td><button onclick="search()" class="btn btn-outline-success" type="submit">Search</button></td>
+       		<td><input type="button" value="검색" onClick="search()">
+       		</td>
   		</tr>
   		</table>
+  	</div>
     </ul>
-  
 </body>
 </html>
