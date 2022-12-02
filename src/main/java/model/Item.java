@@ -46,6 +46,12 @@ public class Item {
 	}
 	
 	public Item() {};
+	
+	public Item(int orderId, String productId, int quantity) {
+		this.orderId = orderId;
+		this.productId = productId;
+		this.quantity = quantity;
+	}
 
 	public Item(String productId, String productName, int quantity, String image) {
 		super();
