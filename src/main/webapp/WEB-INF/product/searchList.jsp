@@ -50,7 +50,7 @@
   			<tr>
   				<td>${product.price}</td>
   			</tr>
-  		 </table>  
+  		 </table>   
   		</span>
 	  </c:forEach>
 	  </td>

@@ -51,7 +51,7 @@ function cartCreate(targetUri) {  //수정 필요
 				${product.name}
 			</td>
 		  </tr>
-		  <tr> 
+		  <tr>  
 			<td width="120" align="center" bgcolor="E6ECDE" height="22">가격</td>
 			<td width="470" bgcolor="ffffff" style="padding-left: 10">
 				${product.price}
