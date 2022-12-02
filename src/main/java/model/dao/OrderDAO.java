@@ -15,41 +15,6 @@ public class OrderDAO {
 		jdbcUtil = new JDBCUtil();
 	}
 	
-//	/**
-//	 * productId를 이용하여 상품의 재고를 int 타입으로 반환한다. 
-//	 */
-//	public int checkProductStock(String productId) {
-//		String sql = "SELECT stock "
-//				+ "FROM product "
-//				+ "WHERE productid=?";
-//		Object[] param = new Object[] {productId};
-//		
-//		ResultSet rs = null;
-//		try {
-//			jdbcUtil.setSqlAndParameters(sql, param);
-//			rs = jdbcUtil.executeQuery();
-//			
-//			int stock = -1;
-//			while (rs.next()) {
-//				stock = rs.getInt("stock");
-//			}
-//			
-//			return stock;
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		} finally {
-//			if (rs != null) {
-//				try {
-//					rs.close();
-//				} catch (Exception ex) {
-//					ex.printStackTrace();
-//				}
-//			}
-//			jdbcUtil.close();
-//		}
-//		return 0;
-//	}
-	
 	/**
 	 * 회원 사용의 주문을 생성하고 Order DTO를 반환한다.
 	 */
@@ -131,36 +96,6 @@ public class OrderDAO {
 	}
 	
 	/**
-	 * orderid를 사용하여 ArrayList<Item>을 반환한다.
-	 */
-	public ArrayList<Item> findItemsByOrderId(int orderid) {
-		String sql = "SELECT * "
-				+ "FROM item "
-				+ "WHERE orderid=?";
-		Object[] params = new Object[] {orderid};
-		
-		ArrayList<Item> items = null;
-		ResultSet rs = null;
-		try {
-			jdbcUtil.setSqlAndParameters(sql, params);
-			rs = jdbcUtil.executeQuery();
-			
-			Item item = new Item();
-			while (rs.next()) {
-				item.setProductId(rs.getString("productid"));
-				item.setQuantity(rs.getInt("quantity"));
-				items.add(item);
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			jdbcUtil.close();
-		}
-		
-		return items;
-	}
-	
-	/**
 	 * 비회원 사용자의 주문을 생성하고 Order DTO를 반환한다. 
 	 */
 	public Order createNonMemberCustomer(Order order, NonMemCustomer nmCustomer, List<Item> items, CashReceipt cr, BillingInfo bi, ShippingDetail sd) {
@@ -169,7 +104,7 @@ public class OrderDAO {
 		String nmcSql = "INSERT INTO non_member_customer "		// 비회원 주문자 테이블(non_member_customer)에 정보 저장
 				+ "VALUES (?, ?, ?, ?)";	
 		String odSql = "INSERT INTO order_detail "
-				+ "VALUES (?, ?, ?, ?, ?)";
+				+ "VALUES (?, ?, ?, ?, ?, ?)";
 		String itemSql = "INSERT INTO item "
 				+ "VALUES (?, ?, ?, lineno_seq.nextval)";
 		String sdSql = "INSERT INTO shipping_detail "
@@ -185,7 +120,7 @@ public class OrderDAO {
 		
 		Object[] omParams = new Object[] {orderDate, order.getOrderStatus()};
 		Object[] mncParams = new Object[] {null, nmCustomer.getName(), nmCustomer.getEmailaddr(), nmCustomer.getPhoneNumber()};
-		Object[] odParams = new Object[] {null, bi.getAccountHolder(), bi.getBankName(), cr.getType(), cr.getPhoneNum()};
+		Object[] odParams = new Object[] {null, bi.getAccountHolder(), bi.getBankName(), cr.getType(), cr.getPhoneNum(), null};
 		Object[] itemParams = new Object[] {null, null, null};
 		Object[] sdParams = new Object[] {null, sd.getDateShipped(), sd.getShippingCompany(), sd.getTrackingNumber(), sd.getShippingMessage(), sd.getShippingAddress()};
 		Object[] productParams = new Object[] {null, null, null};
@@ -279,12 +214,12 @@ public class OrderDAO {
 	/**
 	 *	customerId를 이용하여 customer의 point 정보를 업데이트한다. 
 	 */
-	public boolean updateCustomerPoint(String customerId, int point) {
+	public boolean updateCustomerPoint(String customerId, int usedPoint) {
 		String sql = "UPDATE customer "
 				+ "SET point = point + ? "
 				+ "WHERE customerId = ?";
 		
-		Object[] params = new Object[] {point, customerId};
+		Object[] params = new Object[] {usedPoint, customerId};
 		
 		try {
 			jdbcUtil.setSqlAndParameters(sql, params);
@@ -479,5 +414,35 @@ public class OrderDAO {
 		} finally  {
 			jdbcUtil.close();
 		}
+	}
+	
+	/**
+	 * ordeId로 ArrayList<Item> 반환.
+	 */
+	public ArrayList<Item> findItemsByOrderId(int orderId) {
+		String sql =  "SELECT * "
+				+ "FROM item "
+				+ "WHERE orderid=?";
+		Object[] params = new Object[] {orderId};
+		
+		ResultSet rs = null;
+		try {
+			jdbcUtil.setSqlAndParameters(sql, params);
+			rs = jdbcUtil.executeQuery();
+			
+			ArrayList<Item> items = new ArrayList<Item>();
+			while (rs.next()) {
+				Item item = new Item(rs.getInt("orderid"), rs.getString("productid"), rs.getInt("quantity"));
+				items.add(item);
+			}
+			
+			return items;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		
+		return null;
 	}
 }
