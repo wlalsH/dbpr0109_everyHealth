@@ -10,6 +10,36 @@ public class Product {
 	private String image;
 	private int sell;
 	
+	public Product(String productId, String name, int price, String image) {
+		super();
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+		this.image = image;
+	}
+	public Product(String productId, String name, int price, String category, String image, int sell) {
+		super();
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+		this.category = category;
+		this.image = image;
+		this.sell = sell;
+	}
+	
+	public Product(String productId, String name, int price, String category, int stock, String description,
+			String image, int sell) {
+		super();
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+		this.category = category;
+		this.stock = stock;
+		this.description = description;
+		this.image = image;
+		this.sell = sell;
+	}
+	
 	public String getProductId() {
 		return productId;
 	}
@@ -60,36 +90,6 @@ public class Product {
 		this.sell = sell;
 	}
 	
-	public Product(String productId, String name, int price, String image) {
-		super();
-		this.productId = productId;
-		this.name = name;
-		this.price = price;
-		this.image = image;
-	}
-	public Product(String productId, String name, int price, String category, String image, int sell) {
-		super();
-		this.productId = productId;
-		this.name = name;
-		this.price = price;
-		this.category = category;
-		this.image = image;
-		this.sell = sell;
-	}
-	
-	
-	public Product(String productId, String name, int price, String category, int stock, String description,
-			String image, int sell) {
-		super();
-		this.productId = productId;
-		this.name = name;
-		this.price = price;
-		this.category = category;
-		this.stock = stock;
-		this.description = description;
-		this.image = image;
-		this.sell = sell;
-	}
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", name=" + name + ", price=" + price + ", category=" + category

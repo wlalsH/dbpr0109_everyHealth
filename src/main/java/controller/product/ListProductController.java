@@ -25,7 +25,7 @@ public class ListProductController implements Controller {
 		List<Product> womanList = manager.findBestProductListByCategory(category[5]); 
 		List<Product> manList = manager.findBestProductListByCategory(category[6]); 
 		List<Product> kidsList = manager.findBestProductListByCategory(category[7]); 
-		
+
 		request.setAttribute("prodList", prodList);		
 		request.setAttribute("sightList", sightList);		
 		request.setAttribute("fatigueList", fatigueList);

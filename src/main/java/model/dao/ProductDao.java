@@ -119,7 +119,7 @@ public class ProductDao {
 	public List<Product> findProductList(String keyword) throws SQLException {
 		String sql = "SELECT productId, name, price, category, stock, description, image, sell\r\n"
 				+ "FROM product\r\n"
-				+ "WHERE UPPER(name) LIKE UPPER('%' || ? || '%')";
+				+ "WHERE UPPER(name) LIKE REPLACE(UPPER('%' || ? || '%'), ' ', '')";
 		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {keyword});
 
@@ -132,12 +132,9 @@ public class ProductDao {
 						rs.getString("productId"),
 						rs.getString("name"),
 						rs.getInt("price"),
-						rs.getString("image"),
-						rs.getString("category"),
-						rs.getInt("sell"));
+						rs.getString("image"));
 				prodList.add(prod); // List 에 Product 객체 저장
 			} 
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -148,7 +145,7 @@ public class ProductDao {
 
 	/**
 	 * 주어진 productId 에 해당하는 제품 정보를 데이터베이스에서 찾아 Product 도메인 클래스에
-	 * 저장하여 반환.
+	 * 저장하여 반환. (상품 상세 설명 페이지에 쓰이는 메소드)
 	 */
 	public Product findProduct(String productId) throws SQLException {
 		String sql = "SELECT productId, name, price, category, stock, description, image, sell "
